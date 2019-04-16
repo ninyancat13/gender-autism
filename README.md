@@ -142,7 +142,6 @@ females.
 
 Evaluation:
 
-Hypothesis 1:
 
 The first hypothesis that females are more likely to be diagnosed as having ASD at a later
 age compared to males, was validated. This may be because females tend to be
@@ -156,8 +155,6 @@ The plot will be much more relevant to the hypothesis if proportion is taken in 
 It will also be interesting to reproduce this analysis with a likert scale (ranging from 1 to 7)
 for each question, so variance in responses can be compared through the ages.
 
-
-Hypothesis 2:
 
 The second hypothesis was only partially validated. This is because most questions not
 related to social deficit played a large role in diagnosing both females and males with
