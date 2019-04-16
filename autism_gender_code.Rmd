@@ -1,0 +1,682 @@
+---
+title: "Influence of Gender on Autism Spectrum Disorder(ASD)"
+author: "Nina Kumagai & Cheah Yanan"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction: Problem Statement and Background 
+
+```{r}
+adolescent <- read.csv("Adolescent_Autism.csv")
+adult <- read.csv("Adult_Autism.csv")
+child <- read.csv("Child_Autism.csv")
+```
+
+```{r}
+autism <- rbind(adolescent,adult, child)
+str(autism)
+```
+
+```{r}
+adolescent$lifeStage <- "Adolescent"
+adult$lifeStage <- "Adult"
+child$lifeStage <- "Child"
+
+autism <- rbind(adolescent,adult, child)
+str(autism)
+```
+
+
+```{r}
+dim(autism)
+colnames(autism)
+summary(autism)
+```
+
+```{r}
+autism$Q1[autism$Q1==0] <- "no"
+autism$Q1[autism$Q1==1] <- "yes"
+autism$Q2[autism$Q2==0] <- "no"
+autism$Q2[autism$Q2==1] <- "yes"
+autism$Q3[autism$Q3==0] <- "no"
+autism$Q3[autism$Q3==1] <- "yes"
+autism$Q4[autism$Q4==0] <- "no"
+autism$Q4[autism$Q4==1] <- "yes"
+autism$Q5[autism$Q5==0] <- "no"
+autism$Q5[autism$Q5==1] <- "yes"
+autism$Q6[autism$Q6==0] <- "no"
+autism$Q6[autism$Q6==1] <- "yes"
+autism$Q7[autism$Q7==0] <- "no"
+autism$Q7[autism$Q7==1] <- "yes"
+autism$Q8[autism$Q8==0] <- "no"
+autism$Q8[autism$Q8==1] <- "yes"
+autism$Q9[autism$Q9==0] <- "no"
+autism$Q9[autism$Q9==1] <- "yes"
+autism$Q10[autism$Q10==0] <- "no"
+autism$Q10[autism$Q10==1] <- "yes"
+
+```
+
+
+```{r}
+autism$Q1 <- as.factor(autism$Q1)
+autism$Q2 <- as.factor(autism$Q2)
+autism$Q3 <- as.factor(autism$Q3)
+autism$Q4 <- as.factor(autism$Q4)
+autism$Q5 <- as.factor(autism$Q5)
+autism$Q6 <- as.factor(autism$Q6)
+autism$Q7 <- as.factor(autism$Q7)
+autism$Q8 <- as.factor(autism$Q8)
+autism$Q9 <- as.factor(autism$Q9)
+autism$Q10 <- as.factor(autism$Q10)
+```
+
+
+```{r}
+female <- subset(autism, subset = Gender=="f")
+male <- subset(autism, subset = Gender =="m")
+```
+
+```{r}
+library(Hmisc)
+describe(female)
+```
+
+```{r}
+describe(male)
+```
+
+```{r}
+rownames(male) <- 1:nrow(male)
+```
+
+```{r}
+rownames(female) <- 1:nrow(female)
+```
+
+```{r}
+male <- male[-52:-79, ]
+```
+
+```{r}
+male <- male[-419:-542, ]
+```
+
+```{r}
+describe(male)
+```
+
+
+```{r}
+dim(male)
+```
+
+```{r}
+autism <- rbind(male, female) 
+```
+
+```{r}
+str(autism)
+```
+
+
+```{r}
+library(Hmisc)
+des <- describe(autism)
+des
+```
+
+```{r fig.height=5}
+plot(des)
+```
+
+```{r}
+autism$Gender <- as.character(autism$Gender)
+class(autism$Gender)
+str(autism)
+```
+
+```{r fig.height=6}
+barplot(table(autism$ASD,autism$Gender), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Gender", col = c( "tomato", "royalblue"), main = "Proportion of Males and Females Diagnosed with ASD")
+```
+
+
+
+```{r}
+barplot(table(female$ASD,female$lifeStage), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Gender", col = c( "tomato", "royalblue"), main = "Proportion of Females Diagnosed with ASD")
+axis(2,at=seq(0,250,50))
+```
+```{r}
+barplot(table(male$ASD,male$lifeStage), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Gender", col = c( "tomato", "royalblue"), main = "Proportion of Males Diagnosed with ASD")
+axis(2,at=seq(0,250,50))
+```
+
+```{r}
+ASDwithmales <- subset(male, subset = ASD == "YES")
+head(ASDwithmales)
+```
+
+```{r}
+ASDwithfemales <- subset(female, subset = ASD == "YES")
+head(ASDwithfemales)
+```
+
+
+```{r}
+yestoautism <- rbind(ASDwithfemales, ASDwithmales) 
+```
+
+
+```{r fig.height=6,fig.width=10}
+barplot(table(yestoautism$Gender, yestoautism$lifeStage), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Life Stage", col = c( "tomato", "royalblue"), main = "Proportion of Females and Males Diagnosed with ASD by Life Stage")
+```
+```{r}
+barplot(table(ASDwithmales$ASD,ASDwithmales$lifeStage), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Gender", col = c( "tomato", "royalblue"), main = "Proportion of Males Diagnosed with ASD")
+```
+
+
+```{r fig.height=6}
+par(pty="s")
+barplot(table(autism$Q1,autism$Gender), beside = TRUE, legend.text = TRUE, ylab = "Number of Responses to Q1", xlab = "Gender")
+```
+
+```{r}
+par(pty="s")
+barplot(table(autism$Q8,autism$Gender), beside = TRUE, legend.text = TRUE, ylab = "Number of Responses to Q8", xlab = "Gender")
+```
+
+
+```{r}
+plot(ScreeningScore~Age, data = autism)
+autism <- autism[-157, ]
+autism <- autism[-947, ]
+dim(autism)
+plot(ScreeningScore~Age, data = female)
+plot(ScreeningScore~Age, data = male)
+```
+
+
+
+```{r}
+require(lattice)
+par(mfrow = c(1, 2))
+stripplot(Q2 ~ ASD, data = autism, main = "Q1", groups = ASD)
+```
+
+
+```{r}
+library(vcd)
+```
+
+```{r}
+library(vcdExtra)
+```
+
+
+```{r}
+autismtable <- table(autism$Q1, autism$Q4, autism$Gender, dnn = c("Q1", "Q4", "Gender") )
+autismtable
+```
+
+```{r}
+mosaicplot(autismtable, shade = TRUE, main = "Female and Male Responses to Q1 and Q4 from the DSM-5")
+```
+
+```{r}
+autismtable1 <- table(autism$Q1, autism$Q2, autism$Gender, dnn = c("Q1", "Q2", "Gender") )
+autismtable1
+```
+
+```{r}
+mosaicplot(autismtable1, shade = TRUE)
+```
+
+```{r}
+autismtable2 <- table(autism$Q2, autism$Q8, autism$Gender, dnn = c("Q2", "Q8", "Gender") )
+autismtable2
+```
+
+```{r}
+mosaicplot(autismtable2, shade = TRUE, main = "Male and Female Responses to Q2 and Q8 from the DSM-5")
+```
+
+```{r}
+autismtable3 <- table(autism$Q1, autism$Q6, autism$Gender, dnn = c("Q1", "Q6", "Gender") )
+autismtable3
+```
+
+```{r}
+mosaicplot(autismtable3, shade = TRUE, main = "Male and Female Responses to Q1 and Q6 from the DSM-5")
+```
+
+
+```{r fig.height=6}
+barplot(table(autism$ASD,autism$Gender), beside = TRUE, legend.text = TRUE, ylab = "Number of People with ASD", xlab = "Gender", col = c( "tomato", "royalblue"), main = "Proportion of Males and Females Diagnosed with ASD")
+```
+
+```{r}
+ 
+QFemale <- female[, 1:10]
+
+QMale <- male[, 1:10]
+
+```
+
+```{r}
+table(QFemale$Q1)
+table(QMale$Q1)
+```
+
+```{r}
+table(QFemale$Q2)
+table(QMale$Q2)
+```
+
+```{r}
+table(QFemale$Q3)
+table(QMale$Q3)
+```
+
+```{r}
+table(QFemale$Q4)
+table(QMale$Q4)
+```
+
+```{r}
+table(QFemale$Q5)
+table(QMale$Q5)
+```
+
+```{r}
+table(QFemale$Q6)
+table(QMale$Q6)
+```
+
+```{r}
+table(QFemale$Q7)
+table(QMale$Q7)
+```
+
+```{r}
+table(QFemale$Q8)
+table(QMale$Q8)
+```
+
+```{r}
+table(QFemale$Q9)
+table(QMale$Q9)
+```
+
+```{r}
+table(QFemale$Q10)
+table(QMale$Q10)
+```
+
+
+```{r}
+library(ggplot2)
+library(reshape2)
+
+femalequestions <- data.frame(
+  Questions = c(1, 1, 2, 2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10),
+  Sample = c("Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male","Female", "Male", "Female", "Male"),
+  No = c(122, 144, 242, 249, 227, 223, 213, 235, 199, 210, 266, 289, 272, 235, 198, 169, 275, 292, 174, 198),
+  Yes = c(353, 329, 233, 224, 248, 250, 262, 238, 276, 263, 209, 184, 203, 238, 277, 304, 200, 181, 301, 275)
+)
+
+mfemalequestions <- melt(femalequestions, id.vars = 1:2)
+ggplot(mfemalequestions, aes(x = Questions, y = value, fill = variable), ordered=TRUE) +
+  geom_bar(stat = "identity") +
+  facet_grid(~Sample)
+```
+
+
+```{r}
+# Histogram
+
+#histogram(~glmfwdB)
+```
+
+
+
+
+```{r}
+str(autism)
+```
+
+
+```{r}
+set.seed(54321)
+Index <- sample(nrow(autism), floor(0.15 * nrow(autism)), replace = FALSE)
+Trainautism <- autism[-Index, ]
+Testautism <- autism[Index, ]
+table(Trainautism$ASD)
+table(Testautism$ASD)
+```
+
+
+```{r}
+library(rpart)
+library(randomForest)
+library(partykit)
+```
+
+```{r}
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+```
+
+
+
+```{r}
+#Trainautism$Gender = as.factor(Trainautism$Gender)
+#Trainautism$Q1 = as.integer(Trainautism$Q1)
+#Trainautism$Q2 = as.integer(Trainautism$Q2)
+```
+
+```{r}
+str(Trainautism)
+```
+
+
+```{r}
+autism.rpart <- rpart(ASD~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data=Trainautism, method = "class", minsplit = 2, minbucket = 1)
+```
+
+
+
+```{r fig.height = 7, fig.width = 10}
+plot(autism.rpart)
+text(autism.rpart)
+
+#fancyRpartPlot(autism.rpart)
+```
+
+
+```{r fig.height = 8, fig.width = 18}
+plot(as.party(autism.rpart))
+
+```
+
+```{r}
+head(predict(autism.rpart, newdata = Testautism))
+head(predict(autism.rpart, newdata = Testautism, type = "class"))
+autism.rpart.pred <- predict(autism.rpart, newdata = Testautism, type = "class")
+```
+
+
+```{r}
+confu <- table(autism.rpart.pred, Testautism$ASD, dnn = c("Predictions", "Actual"))
+```
+
+
+
+```{r}
+library(randomForest)
+autism.rf <- randomForest(ASD ~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data = Trainautism, importance=TRUE)
+```
+
+
+```{r}
+names(autism.rf)
+```
+
+
+```{r fig.width = 10}
+varImpPlot(autism.rf, type = 2, n.var = 15)
+```
+
+```{r}
+autism.rf.pred <- predict(autism.rf, newdata = Testautism)
+table(autism.rf.pred, Testautism$ASD, dnn = c("Predictions", "Actual"))
+
+```
+
+```{r}
+# IN order to discriminate how gender is influenced, let us look at the questions that influence each subgroup (males vs females). We will subset dataset into two files.
+```
+
+```{r}
+femaleautism <- subset(autism, subset = (Gender == "f"))
+head(femaleautism)
+```
+
+```{r}
+maleautism <- subset(autism, subset = (Gender == "m"))
+head(male)
+```
+
+```{r}
+#Let us look at female autism first.First begin by subsetting the female dataset into training and test
+
+Index <- sample(nrow(femaleautism), floor(0.15 * nrow(femaleautism)), replace = FALSE)
+Trainautism_f <- femaleautism[-Index, ]
+Testautism_f <- femaleautism[Index, ]
+table(Trainautism_f$ASD)
+table(Testautism_f$ASD)
+
+```
+
+```{r}
+autism_f.rpart <- rpart(ASD~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data=Trainautism_f, method = "class", minsplit = 2, minbucket = 1)
+```
+
+
+```{r fig.height = 7, fig.width = 10}
+plot(autism_f.rpart)
+text(autism_f.rpart)
+
+#fancyRpartPlot(autism.rpart)
+```
+
+
+```{r fig.height = 8, fig.width = 18}
+plot(as.party(autism_f.rpart))
+
+```
+
+```{r}
+head(predict(autism_f.rpart, newdata = Testautism_f))
+head(predict(autism_f.rpart, newdata = Testautism_f, type = "class"))
+autism_f.rpart.pred <- predict(autism_f.rpart, newdata = Testautism_f, type = "class")
+```
+
+
+```{r}
+table(autism_f.rpart.pred, Testautism_f$ASD, dnn = c("Predictions", "Actual"))
+```
+
+2. Use a single tree as well as random forests to predict the presence or absence of heart disease. Follow the pattern above. How well did you do? Don't forget to split the data set into training and test sets.
+
+```{r}
+autism_f.rf <- randomForest(ASD ~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data = Trainautism_f)
+```
+
+```{r}
+names(autism_f.rf)
+```
+
+
+```{r fig.width = 10}
+varImpPlot(autism_f.rf, type = 2, n.var = 15, main = "Female Autism")
+
+```
+
+
+```{r}
+autism_f.rf.pred <- predict(autism_f.rf, newdata = Testautism_f)
+table(autism_f.rf.pred, Testautism_f$ASD, dnn = c("Predictions", "Actual"))
+```
+
+```{r}
+autism_f.rf.imp <- autism_f.rf$importance
+autism_f.rf.imp10 <- sort(autism_f.rf.imp[, ], decreasing = TRUE)[1:10]
+```
+
+```{r}
+par(oma = c(0,5,0,0))
+par(las=2)
+barplot(rev(autism_f.rf.imp10), horiz = TRUE, col = "royalblue3", xlab="Variable Importance (Gini Index)",xaxt="n", main = "Female Autism")
+axis(side=1, at = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), labels =c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), las = 1)
+```
+
+
+```{r}
+#Now onto the male subgroup!
+
+Index <- sample(nrow(male), floor(0.15 * nrow(male)), replace = FALSE)
+Trainautism_m <- male[-Index, ]
+Testautism_m <- male[Index, ]
+table(Trainautism_m$ASD)
+table(Testautism_m$ASD)
+```
+
+
+```{r}
+autism_m.rpart <- rpart(ASD~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data=Trainautism_m, method = "class", minsplit = 2, minbucket = 1)
+```
+
+
+```{r fig.height = 7, fig.width = 10}
+plot(autism_m.rpart)
+text(autism_m.rpart)
+
+#fancyRpartPlot(autism.rpart)
+```
+
+
+```{r fig.height = 8, fig.width = 18}
+plot(as.party(autism_m.rpart))
+
+```
+
+```{r}
+head(predict(autism_m.rpart, newdata = Testautism_m))
+head(predict(autism_m.rpart, newdata = Testautism_m, type = "class"))
+autism_m.rpart.pred <- predict(autism_m.rpart, newdata = Testautism_m, type = "class")
+```
+
+
+```{r}
+table(autism_m.rpart.pred, Testautism_m$ASD, dnn = c("Predictions", "Actual"))
+```
+
+2. Use a single tree as well as random forests to predict the presence or absence of heart disease. Follow the pattern above. How well did you do? Don't forget to split the data set into training and test sets.
+
+```{r}
+autism_m.rf <- randomForest(ASD ~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data = Trainautism_m)
+```
+
+```{r}
+names(autism_m.rf)
+```
+
+
+```{r fig.width = 10}
+varImpPlot(autism_m.rf, type = 2, n.var = 15)
+```
+```{r}
+autism_m.rf.imp <- autism_m.rf$importance
+autism_m.rf.imp10 <- sort(autism_m.rf.imp[, ], decreasing = TRUE)[1:10]
+```
+
+
+```{r}
+par(oma = c(0,5,0,0))
+par(las=2)
+barplot(rev(autism_m.rf.imp10), horiz = TRUE, col = "royalblue3", xlab="Variable Importance (Gini Index)",xaxt="n", main = "Male Autism")
+axis(side=1, at = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), labels =c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), las = 1)
+```
+
+```{r}
+autism_m.rf.pred <- predict(autism_m.rf, newdata = Testautism_m)
+table(autism_m.rf.pred, Testautism_m$ASD, dnn = c("Predictions", "Actual"))
+```
+
+```{r}
+#Now lets try to do a KNN
+
+library(ISLR)
+```
+
+```{r}
+data(autism)
+```
+
+```{r}
+str(autism)
+```
+
+```{r}
+library(Hmisc)
+```
+
+```{r}
+#pairs(autism)
+```
+
+
+```{r}
+levels(autism$ASD)
+```
+
+```{r}
+glmall <- glm(ASD ~ Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10, data = Trainautism, family = binomial(logit))
+summary(glmall)
+```
+
+```{r}
+allpred <- predict(glmall, newdata = Testautism, type = "response")
+head(allpred)
+```
+
+
+```{r}
+allpred.class <- rep("NO", length(allpred))
+allpred.class[allpred > 0.5] <- "YES"
+```
+
+```{r}
+table(allpred.class, Testautism$ASD)
+```
+
+
+```{r}
+library(pROC)
+```
+
+
+```{r}
+glmall1 <- glm(ASD ~ ScreeningScore, data = Trainautism, family = binomial(logit))
+summary(glmall1)
+```
+
+
+
+```{r}
+glm2 <- glm(ASD ~ Q1 + Q2, data = Trainautism, family = binomial(logit))
+summary(glm2)
+```
+
+```{r}
+Q2pred <- predict(glm2, newdata = Testautism, type = "response")
+Q2pred.class <- rep("NO", length(Q2pred))
+Q2pred.class[Q2pred > 0.4] <- "YES"
+table(Q2pred.class, Testautism$ASD)
+```
+
+```{r}
+library(pROC)
+```
+
+```{r}
+par(pty = "s")
+plot(roc(Testautism$ASD, Q2pred), legacy.axes = TRUE)
+```
+
+
+
