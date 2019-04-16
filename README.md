@@ -11,9 +11,9 @@ https://archive.ics.uci.edu/ml/datasets/Autistic+Spectrum+Disorder+Screening+Dat
 https://archive.ics.uci.edu/ml/datasets/Autism+Screening+Adult
 
 
-A Brief Overview of the Documentation attached to the file:
+## A Brief Overview of the Documentation attached to the file:
 
-Introduction
+### Introduction
 
 Autistic Spectrum Disorder (ASD) is a mental illness that limits an individual’s linguistic,
 cognitive and social skills (Johnson & Myers, 2007). Behavioral and neuroimaging studies
@@ -43,7 +43,7 @@ the DSM-4 were not as relevant to the DSM-5.
 The current investigation will focus on implementing a complex exploratory and
 predictive model to identify the influence gender may play in ASD diagnosis.
 
-The aims are to:
+#### The aims are to:
 
 (1) Determine whether fewer females than males have been diagnosed with
 ASD.
@@ -52,7 +52,7 @@ ASD.
 diagnostic criteria.
 
 
-The hypotheses are:
+#### The hypotheses are:
 
 (1) Females are more likely to be diagnosed as having ASD at a later age
 compared to males.
@@ -71,9 +71,7 @@ expression in communication.
 - Q4, Q5, Q6, Q7 and Q10 are those that are not related to social deficit.
 
 
-2. Methods
-
-Data Structure:
+### Data Structure:
 
 Datasets were originally in .arff format. The file was saved in “csv”" format and
 each dataset (child, adolescent and adult) were transferred to R Studio. The “rbind”
@@ -92,7 +90,7 @@ Screening Score (they answered yes to at least 7 out of 10 questions within the
 DSM-5).
 
 
-Data Cleaning and Wrangling:
+### Data Cleaning and Wrangling:
 
 As the original dataset contained more males than females, approximately 150
 males were randomly deleted from the dataset, making sure to maintain a similar
@@ -107,7 +105,7 @@ analysis and interpretation. They were also subsequently changed to a factor
 variable to enable random forest analysis.
 
 
-Predictive Analysis:
+### Predictive Analysis:
 
 Decision trees and confusion matrix comprised the bulk of the analysis. This was
 also accompanied with a barplot for hypothesis 1 using the ggplot function. Other
@@ -117,7 +115,7 @@ of dummy variables and there was not sufficient time for such an analysis to be
 constructed.
 
 
-Summary of Results:
+### Summary of Results:
 
 The diagnosis of ASD through the current DSM-5 criteria seems to be quite
 accurate, as can be seen from the confusion matrix where number of
@@ -142,7 +140,7 @@ related question, Q3, has relatively larger importance in diagnosing males compa
 females.
 
 
-Evaluation:
+### Evaluation:
 
 
 The first hypothesis that females are more likely to be diagnosed as having ASD at a later
@@ -176,7 +174,7 @@ Furthermore, the large difference in Gini Index of Q6 and Q7 for females should 
 investigated further to understand the drastic drop in average decrease of Gini index.
 
 
-Difficulties encountered while obtaining results:
+### Difficulties encountered while obtaining results:
 
 Logistic regression was attempted, but the prediction error seems to be too
 inaccurate for our results. The range of threshold for the roc plot resulted in an
