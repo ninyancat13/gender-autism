@@ -174,24 +174,6 @@ Furthermore, the large difference in Gini Index of Q6 and Q7 for females should 
 investigated further to understand the drastic drop in average decrease of Gini index.
 
 
-Critical Discussion:
-
-Randomly subtracting some of the male individuals from the dataset to match the
-frequency of female’s responses may have indirectly biased the results. For example, if
-the dataset respondents were collected in a nature where patients themselves or their
-caretakers suspected the presence of ASD, then the fact that a larger portion of males
-existed in the dataset should not have been tampered with. In fact, this may be the
-reason why a much larger proportion of females were diagnosed with ASD within our
-dataset, although previous research consistently suggests a larger portion of males are
-diagnosed with ASD (Lai et al., 2015; Mandy et al., 2012).
-
-Although it was good that many individuals born in different countries and residing in
-various places took part in the analysis, a larger dataset is desirable. Also, much more
-modelling is required to validate the first hypothesis. Perhaps a 2-way ANOVA could be
-used to understand the relationship between age and gender influencing ASD diagnosis,
-to statistically measure the interaction effect.
-
-
 Difficulties encountered while obtaining results:
 
 Logistic regression was attempted, but the prediction error seems to be too
